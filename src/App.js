@@ -11,7 +11,7 @@ function App() {
   const [movies, setMovie] = useState([]);
   const [search, setSearch] = useState("");
   const [favourites, setFavourites] = useState([]);
-
+ 
   const getMovieRequest = async (search) => {
     const url = `http://www.omdbapi.com/?s=${search}&apikey=4fb99b8e`;
 
@@ -26,9 +26,20 @@ function App() {
     getMovieRequest(search);
   }, [search]);
 
+  useEffect(() => {
+    const movieFavorite = JSON.parse(localStorage.getItem("favourites")
+    );
+    setFavourites(movieFavorite);
+  },[])
+
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem("favourites", JSON.stringify(items)); 
+  }
   const addFavouriteMovie = (movie) => {
     const newFavourites = [...favourites, movie];
     setFavourites(newFavourites);
+    saveToLocalStorage(newFavourites);
+    
   };
 
   const removeFavouriteMovie = (movie) => {
@@ -37,6 +48,8 @@ function App() {
     );
 
     setFavourites(newFavouritesList);
+    saveToLocalStorage(newFavouritesList);
+   
   };
   return (
     <div className="container-fluid moviator">
