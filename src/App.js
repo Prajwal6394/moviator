@@ -4,10 +4,12 @@ import "./App.css";
 import MovieList from "./components/MovieList";
 import MovieHeading from "./components/MovieHeading";
 import SearchBox from "./components/SearchBox";
+import AddStars from "./components/AddStars";
 
 function App() {
   const [movies, setMovie] = useState([]);
   const [search, setSearch] = useState("");
+  const [favourites, setFavourites] = useState([]);
 
   const getMovieRequest = async (search) => {
     const url = `http://www.omdbapi.com/?s=${search}&apikey=4fb99b8e`;
@@ -29,7 +31,7 @@ function App() {
         <SearchBox search = {search} setSearch = {setSearch}/>
       </div>
       <div className= 'row mt-0'>
-        <MovieList movies={movies} />
+        <MovieList movies={movies} handleFavouritesClick = {addFavouriteMovie} favouritesComponents = {AddStars}/>
       </div>
     </div>
   );
