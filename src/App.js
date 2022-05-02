@@ -5,6 +5,7 @@ import MovieList from "./components/MovieList";
 import MovieHeading from "./components/MovieHeading";
 import SearchBox from "./components/SearchBox";
 import AddStars from "./components/AddStars";
+import RemoveFavourites from "./components/RemoveFavourites";
 
 function App() {
   const [movies, setMovie] = useState([]);
@@ -29,6 +30,14 @@ function App() {
     const newFavourites = [...favourites, movie];
     setFavourites(newFavourites);
   };
+
+  const removeFavouriteMovie = (movie) => {
+    const newFavouritesList = favourites.filter(
+      (favourites) => favourites.imdbID !== movie.imdbID
+    );
+
+    setFavourites(newFavouritesList);
+  };
   return (
     <div className="container-fluid moviator">
       <div className="row d-flex align-items-center mt-4 mb-4">
@@ -48,8 +57,8 @@ function App() {
       <div className="row mt-0">
         <MovieList
           movies={favourites}
-          handleFavouritesClick={addFavouriteMovie}
-          favouritesComponents={AddStars}
+          handleFavouritesClick={removeFavouriteMovie}
+          favouritesComponents={RemoveFavourites}
         />
       </div>
     </div>
